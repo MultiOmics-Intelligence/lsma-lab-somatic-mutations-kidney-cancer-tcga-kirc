@@ -30,7 +30,7 @@ This is one of a series of worked examples from the **LSMA Analysis Lab**, publi
 
 The series follows one cancer, clear cell kidney cancer, through every layer: genes, single cells, DNA methylation, enhancers, mutations, proteins and metabolites. Each repository links to the others.
 
-These are teaching examples. They are not new research findings and must not be used for medical decisions.
+These examples are for education and must not be used for medical decisions.
 
 ---
 
