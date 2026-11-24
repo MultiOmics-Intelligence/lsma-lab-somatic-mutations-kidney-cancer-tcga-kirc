@@ -1,0 +1,8 @@
+signature	share_of_substitutions	substitutions	known_cause
+SBS40	0.3674	4259	unknown (flat signature)
+SBS6	0.1608	1864	defective mismatch repair
+SBS4	0.1387	1608	tobacco smoke
+SBS3	0.1202	1394	defective repair of DNA breaks (BRCA1/2)
+SBS26	0.0849	984	see COSMIC
+SBS39	0.0779	903	see COSMIC
+SBS7a	0.05	580	ultraviolet light
