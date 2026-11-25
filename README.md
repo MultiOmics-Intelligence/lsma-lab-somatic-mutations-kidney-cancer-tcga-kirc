@@ -199,7 +199,7 @@ TMB divides each tumour's protein-changing mutations by the assumed size of the 
 **Flag for unusually many mutations**
 
 $$
-M_s > \max\left(3 \cdot \operatorname{median}(M),\ \operatorname{median}(M) + 5 \cdot \operatorname{MAD}(M)\right) \quad \text{and} \quad M_s \ge 20
+M_s > \max\left(3 \cdot \mathrm{median}(M),\ \mathrm{median}(M) + 5 \cdot \mathrm{MAD}(M)\right) \quad \text{and} \quad M_s \ge 20
 $$
 
 $M_s$ is the number of protein-changing mutations in tumour s, and MAD is the median absolute deviation (scaled by 1.4826). Using the median and MAD keeps one extreme tumour from moving the threshold itself.
