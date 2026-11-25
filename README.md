@@ -176,6 +176,74 @@ Every step below is a stage in the LSMA Analysis Lab, run with the settings in [
 
 **Software:** R 4.5.2 and Bioconductor 3.21, with maftools, MutationalPatterns and BSgenome hg38, in the versions listed in the settings file.
 
+## The mathematics behind the methods
+
+The formulas below are the ones the lab's code runs, with the settings of this analysis.
+
+**Mutation frequency**
+
+$$
+f_g = \frac{\text{tumours with at least one protein-changing mutation in gene } g}{n}
+$$
+
+n is the number of tumours (200). A tumour counts once however many mutations it has in the gene. This is the percentage beside each gene in the oncoplot, for example 41% for *VHL*.
+
+**Tumour mutational burden, allele fraction and Ti/Tv**
+
+$$
+\text{TMB} = \frac{\text{protein-changing mutations}}{38 \text{ Mb}}, \qquad \text{VAF} = \frac{\text{reads with the variant}}{\text{all reads at the position}}, \qquad \frac{\text{Ti}}{\text{Tv}} = \frac{n(\text{C>T}) + n(\text{T>C})}{n(\text{all other substitutions})}
+$$
+
+TMB divides each tumour's protein-changing mutations by the assumed size of the sequenced coding region, 38 Mb. The variant allele fraction (VAF) is near 0.5 for a heterozygous mutation in a pure tumour and lower when normal cells are mixed in. Ti/Tv compares transitions (C>T and T>C, written on the pyrimidine strand) with the four kinds of transversion; n(·) counts single-base substitutions of each kind.
+
+**Flag for unusually many mutations**
+
+$$
+M_s > \max\left(3 \cdot \operatorname{median}(M),\ \operatorname{median}(M) + 5 \cdot \operatorname{MAD}(M)\right) \quad \text{and} \quad M_s \ge 20
+$$
+
+$M_s$ is the number of protein-changing mutations in tumour s, and MAD is the median absolute deviation (scaled by 1.4826). Using the median and MAD keeps one extreme tumour from moving the threshold itself.
+
+**Fisher's exact test and the odds ratio**
+
+$$
+P(a) = \frac{\binom{a+b}{a}\binom{c+d}{c}}{\binom{n}{a+c}}, \qquad \text{OR} = \frac{a d}{b c}
+$$
+
+For two genes, a is the number of tumours with both mutated, b and c those with only one of them, and d those with neither (n = a + b + c + d). For a group comparison, a and b are mutated and unmutated tumours among patients who died, and c and d the same among those alive. With the row and column totals fixed, P(a) is the probability of each possible table; the two-sided p-value adds up the probabilities of all tables as unlikely as the one observed or less. R reports a conditional maximum-likelihood estimate of the odds ratio, which is close to ad/bc; above 1 means together (or more common in patients who died).
+
+**Benjamini–Hochberg adjustment**
+
+$$
+p^{\text{adj}}_{(i)} = \min_{j \ge i} \ \min\left(1,\ \frac{m \cdot p_{(j)}}{j}\right)
+$$
+
+The m p-values of one series (all gene pairs, or all genes compared between the groups) are sorted, $p_{(1)} \le \dots \le p_{(m)}$, and each is scaled by m divided by its rank. An adjusted p below 0.05 keeps the expected share of false discoveries among the results at 5%.
+
+**Mutational signatures: non-negative refit**
+
+$$
+\hat{e} = \arg\min_{e \ge 0} \left\lVert m - S e \right\rVert^2, \qquad \cos(m, \hat{m}) = \frac{\sum_c m_c \hat{m}_c}{\sqrt{\sum_c m_c^2}\ \sqrt{\sum_c \hat{m}_c^2}}
+$$
+
+m holds the counts of substitutions in the 96 trinucleotide contexts c, the columns of S are the COSMIC v3.2 signatures, and $\hat{e}$ is how many substitutions each signature explains (never negative). The reconstruction is $\hat{m} = S\hat{e}$. In the strict refit, signatures are then dropped one at a time while dropping one lowers the cosine similarity by less than 0.004, so small, unneeded signatures are removed. Each signature's share is its contribution divided by the total.
+
+**Copy number: gains, losses and their frequency**
+
+$$
+\text{gain: } L \ge 0.2, \qquad \text{loss: } L \le -0.2, \qquad \text{frequency}_{\text{bin}} = \frac{\text{tumours with a gain (or loss) in the bin}}{\text{tumours with segments}}
+$$
+
+L is a segment's log2 ratio, the tumour's copy-number signal against the normal reference. In a pure tumour, losing one of two copies gives log2(1/2) = −1 and gaining one gives log2(3/2) ≈ 0.58; the ±0.2 thresholds also catch changes diluted by normal cells. Segments with fewer than 10 markers are dropped, the autosomes are cut into 2 Mb bins, and each bin takes the value of the segment at its midpoint.
+
+**Fraction of the genome altered**
+
+$$
+\text{FGA}_s = \frac{\sum_{\text{bins}} w_b \cdot \mathbf{1}\left[\text{bin } b \text{ gained or lost in tumour } s\right]}{\sum_{\text{bins}} w_b}
+$$
+
+$w_b$ is the width of bin b in base pairs. This is the share of the autosomal genome that tumour s has gained or lost; the median tumour has 12%.
+
 ---
 
 ## Validation
