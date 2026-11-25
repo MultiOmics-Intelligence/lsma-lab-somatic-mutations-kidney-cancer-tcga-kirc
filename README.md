@@ -28,7 +28,7 @@ This is one of a series of worked examples from the **LSMA Analysis Lab**, publi
 - **To keep testing our own tools.** Every example is a real-world test of the lab. Running public data from start to finish shows what works and what needs fixing, and the fixes go back into the lab for every student. Two improvements have already come from this series: a more reliable import from NCBI GEO, and automatic choice of the right cell-type markers for each tissue in single-cell analysis.
 - **To make the work open and repeatable.** The data are public, every parameter and software version is listed, and diploma students can repeat the same analysis in the lab themselves.
 
-The series follows one cancer, clear cell kidney cancer, through every layer: genes, single cells, DNA methylation, enhancers, mutations, proteins and metabolites. Each repository links to the others.
+The series follows one cancer, clear cell kidney cancer, through every layer: genes, single cells, DNA methylation, enhancers, mutations, proteins, metabolites and lipids. Each repository links to the others.
 
 These examples are for education and must not be used for medical decisions.
 
@@ -292,6 +292,7 @@ lsma-lab-somatic-mutations-kidney-cancer-tcga-kirc/
   - [active enhancers](https://github.com/MultiOmics-Intelligence/lsma-lab-chip-seq-kidney-cancer-enhancers)
   - [proteomics](https://github.com/MultiOmics-Intelligence/lsma-lab-proteomics-kidney-cancer-cptac)
   - [metabolomics](https://github.com/MultiOmics-Intelligence/lsma-lab-metabolomics-kidney-cancer)
+  - [lipidomics](https://github.com/MultiOmics-Intelligence/lsma-lab-lipidomics-kidney-cancer)
 
 ## Run it yourself
 
