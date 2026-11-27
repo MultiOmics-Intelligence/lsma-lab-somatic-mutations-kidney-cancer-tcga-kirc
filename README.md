@@ -377,6 +377,6 @@ The text, figures and tables in this repository are shared under [Creative Commo
 
 ---
 
-**Dr. Anas Alzaeem**, Academic Director, London School of Multiomics & AI
+**The LSMA Team**, Analysis Lab, London School of Multiomics & AI
 
-<img src="https://raw.githubusercontent.com/MultiOmics-Intelligence/.github/main/assets/signature/LSMA_Banner_Anas_Alzaeem.png" alt="Dr. Anas Alzaeem, London School of Multiomics & AI" width="600">
+<img src="https://raw.githubusercontent.com/MultiOmics-Intelligence/.github/main/assets/signature/LSMA_Banner_Team.svg" alt="The LSMA Team, London School of Multiomics & AI" width="600">
